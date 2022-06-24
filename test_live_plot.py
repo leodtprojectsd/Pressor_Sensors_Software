@@ -1,26 +1,16 @@
 #!/usr/bin/env python3
-
+import functions_pressure as funp
 import os
-import io
 import time
 import matplotlib.pyplot as plt
 import matplotlib as mpl
 import matplotlib.animation
 
 
-
-def get_data(filename, buffer_len, delay=0.0):
-    with open(filename, "r") as f:
-        f.seek(0, io.SEEK_END)
-        data = f.read(buffer_len)
-        if delay:
-            time.sleep(delay)
-    return data
-
 def animate(i, xs, ys, limit=20, verbose=False):
     # grab the data
     try:
-        data = get_data(DATA_FILENAME, BUFFER_LEN)
+        data = funp.get_data(DATA_FILENAME, BUFFER_LEN)
         if verbose:
             print(data)
         x, y = map(float, data.split())

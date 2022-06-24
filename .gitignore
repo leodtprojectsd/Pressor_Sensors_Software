@@ -154,3 +154,4 @@ cython_debug/
 
 #my folders
 data/*
+background_images/*
