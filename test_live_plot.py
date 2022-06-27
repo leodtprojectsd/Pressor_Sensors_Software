@@ -39,7 +39,7 @@ def plot_():
 
 
 BUFFER_LEN = 64
-DATA_FILENAME = os.path.join(os.getcwd(), "data", "test_data.txt")
+DATA_FILENAME = os.path.join(os.getcwd(), "data", "test_data.csv")
 PLOT_LIMIT = 20
 fig, ax = plt.subplots(1, 1, figsize=(10, 8))
 ax.set_title("Plot of random numbers from `gen.py`")

@@ -35,7 +35,7 @@ def update_plot(fig, sc, pressure_data):
     fig.canvas.draw()
     fig.canvas.flush_events()
 
-def get_data():
+def get_data(): #todo modify this to take in data from
     return np.random.random((2, 8))
 
 if __name__ == "__main__":
