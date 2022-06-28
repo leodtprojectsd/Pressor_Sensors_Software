@@ -18,7 +18,7 @@ def animate(i):
 	y = data[:, 1]
 	y2 = data[:, 2]
 	plt.cla()
-	ax.set_ylim([0, 255])
+	ax.set_ylim([0, 5e7])
 	ax.scatter(x, y, label="channel_1")
 	ax.scatter(x, y2, label="channel_2")
 
