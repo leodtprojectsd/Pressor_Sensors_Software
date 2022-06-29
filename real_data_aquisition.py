@@ -10,8 +10,6 @@ import numpy as np
 import serial
 
 
-
-
 def connect_to_usb (port = "COM3", baudrate =115200, timeout = 2,  rx_size=1000000, tx_size=1000000, scale="high"):
 
     try:
@@ -24,7 +22,6 @@ def connect_to_usb (port = "COM3", baudrate =115200, timeout = 2,  rx_size=10000
     except :
         exit("Exiting program\nserial could not connect, try: \n-->disconnecting PCB \n--> disconnecting a USB\nmaybe a serial is open somewhere. ")
 
-
     s.set_buffer_size(rx_size=rx_size, tx_size=tx_size)
     print("..Connection successful, is serial port open?: ", s.isOpen())
     s.write(bytearray([30]))  # request connection string
@@ -33,7 +30,6 @@ def connect_to_usb (port = "COM3", baudrate =115200, timeout = 2,  rx_size=10000
     print(list(string))
     if len (string)>5:
         exit("Connecting string short, try diconnecting and reconnecting PCB and restarting program")
-
      #set scale
     scale_array = [24, 0, 0, 0, 0] if scale == "high" else [24, 255, 255, 255, 255]
     s.write(bytearray(scale_array))  # checked it works
