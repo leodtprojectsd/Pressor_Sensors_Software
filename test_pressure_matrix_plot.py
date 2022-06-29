@@ -9,9 +9,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import os
 
-# min and max values that the sensors will produce
-SENSOR_MIN = 0
-SENSOR_MAX = 1
+
 
 def make_plot(background, coordinates, pressure_data):
     fig, ax = plt.subplots(1, 1)

@@ -10,17 +10,17 @@ import functions_pressure as funp
 DATA_FILENAME = os.path.join(os.getcwd(), "data", "test_data.csv")
 
 def animate(i):
-	data = funp.read_lastnlines(DATA_FILENAME, 20)
+	data = funp.read_lastnlines(config.DATA_FILENAME, config.BUFFER_mean)
 	x = data[:, 0]
 	plt.cla()
 	 #configure after cla
 	ax.set_ylim(config.Y_lim)
-	ax.set_title("Live R vs Time for each pixel")
+	ax.set_title(f"Live R vs Time for each pixel\n(mean of {config.BUFFER_mean} samples")
 	ax.set_xlabel("time[s]")
 	ax.set_ylabel("RΩ")
 
 	for pin in config.PINS:
-		plt.scatter(x, data[:, pin], c=config.colours[pin - 1], label=f"channel_{pin}")
+		plt.scatter(x, data[:, pin], c=config.COLOURS[pin - 1], label=f"channel_{pin}")
 	plt.legend(list(config.PINS), loc=(1.04, 0))
 	plt.tight_layout()
 
