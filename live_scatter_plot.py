@@ -24,6 +24,7 @@ def animate(i):
 	plt.legend(list(config.PINS), loc=(1.04, 0))
 	plt.tight_layout()
 
+
 # main
 def plot_():
 	anim = FuncAnimation(plt.gcf(), animate, interval=100)
