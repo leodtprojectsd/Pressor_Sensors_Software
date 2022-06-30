@@ -14,7 +14,7 @@ import numpy as np
 
 ylim = (0, 5e7)
 xlim = (0, 200)
-lw= 0
+lw= 2
 
 fig = plt.figure(figsize=(10, 8))
 ax1 = plt.axes(xlim=xlim, ylim=ylim) # todo make these valules config
@@ -50,7 +50,7 @@ def animate(i):
 
 def plot_():
     print ("waiting a bit for data to start a writing..(sleeping 5 seconds)")
-    time.sleep(5)
+    # time.sleep(5)
     anim = animation.FuncAnimation(fig, animate, init_func=init,
                                    frames=frame_num, interval=10, blit=True)
     plt.show()
