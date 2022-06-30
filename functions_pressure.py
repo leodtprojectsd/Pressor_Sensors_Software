@@ -30,6 +30,6 @@ def read_lastnlines(filename_,n):
     storage = np.zeros((2, 33))
     with open(filename_) as f:
         for line in (f.readlines() [-n:]):
-            arr = np.array(line.split(",")).reshape(1,33)
+            arr = np.array(line.split(",")).reshape(1, 33)
             storage = np.append(storage, arr, axis=0).astype(float)
-    return storage[2:, :].mean(axis=0).reshape(1,33)
+    return storage[2:, :].mean(axis=0).reshape(1, 33)

@@ -20,7 +20,7 @@ def animate(i):
 	ax.set_ylabel("RΩ")
 
 	for pin in config.PINS:
-		plt.scatter(x, data[:, pin], c=config.COLOURS[pin - 1], label=f"channel_{pin}")
+		plt.scatter(x, data[:, pin], c=config.pin_color[pin], label=f"channel_{pin}",alpha=1, s=15.0**2, marker=config.marker[pin])
 	plt.legend(list(config.PINS), loc=(1.04, 0))
 	plt.tight_layout()
 

@@ -6,7 +6,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-
 def make_plot(background, coordinates, pressure_data):
     fig, ax = plt.subplots(1, 1)
     ax.imshow(background)
@@ -45,7 +44,7 @@ def plot_():
     while True:
         frame_start = time.perf_counter()
         data = funp.read_lastnlines(config.DATA_FILENAME, config.BUFFER_mean)  # returns the mean of last x datapoints
-        pressure_values = data[:, config.PINS]  # get the pressure values corresponding to the image
+        pressure_values = data[:, config.PINS_]  # get the pressure values corresponding to the image
 
         # update the figure
         update_plot(fig, sc, pressure_values)
