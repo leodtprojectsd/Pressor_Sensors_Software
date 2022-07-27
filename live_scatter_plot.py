@@ -7,15 +7,14 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 import functions_pressure as funp
-DATA_FILENAME = os.path.join(os.getcwd(), "data", "test_data.csv")
 
 def animate(i):
-	data = funp.read_lastnlines(config.DATA_FILENAME, config.BUFFER_mean)
+	data = funp.read_lastnlines(config.paths_["DATA_FILENAME"], config.BUFFER_mean)
 	x = data[:, 0]
 	plt.cla()
 	 #configure after cla
 	ax.set_ylim(config.Y_lim)
-	ax.set_title(f"Live R vs Time for each pixel\n(mean of {config.BUFFER_mean} samples")
+	ax.set_title(f"Live R vs Time for each pixel\n(mean of {config.BUFFER_mean} samples)")
 	ax.set_xlabel("time[s]")
 	ax.set_ylabel("RΩ")
 

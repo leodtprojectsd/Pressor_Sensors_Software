@@ -12,8 +12,8 @@ import config
 import time
 import numpy as np
 
-ylim = (0, 5e7)
-xlim = (0, 200)
+ylim = config.line_plot_ylim
+xlim = config.line_plot_xlim
 lw= 2
 
 fig = plt.figure(figsize=(10, 8))
@@ -40,8 +40,18 @@ store_data = np.zeros((1, 33))
 frame_num = 100
 def animate(i):
     global store_data
+    global xlim
+    global ylim
 
-    data = funp.read_lastnlines(config.DATA_FILENAME, 62) #todo config
+    data = funp.read_lastnlines(config.paths_["DATA_FILENAME"], 62) #todo config
+
+    if data[:,0][0]+50>xlim[-1]:
+        xlim = (xlim[0]+100, xlim[1]+100)
+        plt.cla()
+        line, = ax1.plot([], [], lw=lw, marker=".", ms=8)  # todo config
+        ax1.set_xlim(xlim)
+        ax1.set_ylim(ylim)
+
     # data[:,1:] = np.reciprocal(data[:,1:]) # this is for conductance - (change ylim range )
     store_data = np.append(store_data, data, axis=0)
     for lnum,line in enumerate(lines):
@@ -49,8 +59,6 @@ def animate(i):
     return lines
 
 def plot_():
-    print ("waiting a bit for data to start a writing..(sleeping 5 seconds)")
-    # time.sleep(5)
     anim = animation.FuncAnimation(fig, animate, init_func=init,
                                    frames=frame_num, interval=10, blit=True)
     plt.show()

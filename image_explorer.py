@@ -1,5 +1,6 @@
 """
-Use this program to explore the position of PEDOT pixels on the image
+Explore the position of each pixel -explores with text
+
 """
 import matplotlib.pyplot as plt
 import os

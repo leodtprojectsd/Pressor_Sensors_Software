@@ -3,15 +3,14 @@ Acquire and save continuously data from PCB-board.
 
 """
 
+import config
 import time
-import os
 import csv
 import numpy as np
 import serial
 
 
-def connect_to_usb(port="COM3", baudrate=115200, timeout=2,  rx_size=1000000, tx_size=1000000, scale="high"):
-
+def connect_to_usb(port="COM3", baudrate=115200, timeout=2, rx_size=1000000, tx_size=1000000, scale="high"):
     try:
         s = serial.Serial(port, baudrate=baudrate, timeout=timeout)
     except:
@@ -34,7 +33,7 @@ def connect_to_usb(port="COM3", baudrate=115200, timeout=2,  rx_size=1000000, tx
     print(list(string))
     if len(string) > 5:
         exit("Connecting string short, try disconnecting and reconnecting PCB and restarting program")
-    #set scale
+    # set scale
     scale_array = [24, 0, 0, 0, 0] if scale == "high" else [24, 255, 255, 255, 255]
     s.write(bytearray(scale_array))  # checked it works
     print(f"scale set to {scale}")
@@ -65,9 +64,9 @@ def get_data_from_USB_PCB(filename, limit_time, scale="high", port="COM3",
     """
 
     factor = 10e5 if scale == "high" else 10e3  # used for resistance calculation
-     #connect to serial port
-    s = connect_to_usb(port=port,  baudrate=baudrate, timeout=timeout, rx_size=rx_size, tx_size=tx_size, scale=scale)
-     #aquire data and write to .csv
+    # connect to serial port
+    s = connect_to_usb(port=port, baudrate=baudrate, timeout=timeout, rx_size=rx_size, tx_size=tx_size, scale=scale)
+    # aquire data and write to .csv
     with open(filename, 'w', newline='') as f:
         file_writer = csv.writer(f, delimiter=',')
         start_time = time.time()
@@ -76,21 +75,20 @@ def get_data_from_USB_PCB(filename, limit_time, scale="high", port="COM3",
             bytes_ = list(s.read(131))  # read data
             serial_port_data = np.array(bytes_[1:65] + bytes_[65:-2]).reshape(2, 64)
             got_data = time.time()
-             #Tranform Data Bytes --> Resistance
+            # Tranform Data Bytes --> Resistance
             voltage = (serial_port_data[:, ::2] * 256 + serial_port_data[:, 1::2] + 1) * (
-                        2.4 / 2 ** 15)  # https://stackoverflow.com/questions/44068819/copy-every-nth-column-of-a-numpy-array
+                    2.4 / 2 ** 15)  # https://stackoverflow.com/questions/44068819/copy-every-nth-column-of-a-numpy-array
             resistance = voltage / (2.048 - voltage) * factor  # V to R
             resistance_data = np.insert(resistance, 0,
                                         [got_data - start_time, got_data - start_time + 0.015],
                                         axis=1)  # add the time column as first column
 
-            for data_row in resistance_data: #iterate over each row in data
+            for data_row in resistance_data:  # iterate over each row in data
                 file_writer.writerow(data_row)
             f.flush()
             elapsed = time.time() - start_time
 
 
 if __name__ == '__main__':
-    LIMIT_TIME = 100  # s
-    DATA_FILENAME = os.path.join(os.getcwd(), "data", "test_data.csv")
-    get_data_from_USB_PCB(DATA_FILENAME, LIMIT_TIME, scale="high")
+    DATA_FILENAME = config.paths_["DATA_FILENAME"]
+    get_data_from_USB_PCB(DATA_FILENAME, config.LIMIT_TIME, scale=config.SCALE)

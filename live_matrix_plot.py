@@ -18,6 +18,7 @@ def make_plot(background, coordinates, pressure_data):
         cmap="inferno",
         vmin=config.SENSOR_MIN,
         vmax=config.SENSOR_MAX,
+        alpha= config.alpha_matrix
     )
     fig.colorbar(sc, label="pressure (some units)")
     return fig, sc
@@ -29,12 +30,12 @@ def update_plot(fig, sc, pressure_data):
     fig.canvas.flush_events()
 
 def plot_():
-    background_img = plt.imread(config.IMAGE_FILEPATH)
+    background_img = plt.imread(config.paths_[config.IMAGE])
     coordinates = config.IMAGE_COORDINATES[config.IMAGE]
 
-    data = funp.read_lastnlines(config.DATA_FILENAME, config.BUFFER_mean)
+    data = funp.read_lastnlines(config.paths_["DATA_FILENAME"], config.BUFFER_mean)
     print(data.shape)
-    pressure_values = data[:, config.PINS_]   # todo change this so that PINS are associated with a pixel position.
+    pressure_values = data[:, config.PINS]   # todo change this so that PINS are associated with a pixel position.
 
     fig, sc = make_plot(background_img, coordinates, pressure_values)
     # exit the script when the figure is closed
@@ -43,8 +44,8 @@ def plot_():
 
     while True:
         frame_start = time.perf_counter()
-        data = funp.read_lastnlines(config.DATA_FILENAME, config.BUFFER_mean)  # returns the mean of last x datapoints
-        pressure_values = data[:, config.PINS_]  # get the pressure values corresponding to the image
+        data = funp.read_lastnlines(config.paths_["DATA_FILENAME"], config.BUFFER_mean)  # returns the mean of last x datapoints
+        pressure_values = data[:, config.PINS]  # get the pressure values corresponding to the image
 
         # update the figure
         update_plot(fig, sc, pressure_values)
@@ -54,3 +55,5 @@ def plot_():
             plt.pause(0.1 - frame_time)
 
 
+if __name__ == '__main__':
+	plot_()

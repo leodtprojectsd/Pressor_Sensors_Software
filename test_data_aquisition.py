@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
-'''
+"""
 test data aquisition simulates the the data that would be aquired from the DAC.
-'''
+"""
 import time
-import random
 import os
 import csv
 import numpy as np
