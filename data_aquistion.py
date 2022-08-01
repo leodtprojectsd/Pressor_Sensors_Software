@@ -80,7 +80,7 @@ def get_data_from_USB_PCB(filename, limit_time, scale="high", port="COM3",
                     2.4 / 2 ** 15)  # https://stackoverflow.com/questions/44068819/copy-every-nth-column-of-a-numpy-array
             resistance = voltage / (2.048 - voltage) * factor  # V to R
             resistance_data = np.insert(resistance, 0,
-                                        [got_data - start_time, got_data - start_time + 0.015],
+                                        [time.time(), time.time() + 0.015],
                                         axis=1)  # add the time column as first column
 
             for data_row in resistance_data:  # iterate over each row in data

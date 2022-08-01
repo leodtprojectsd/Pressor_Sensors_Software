@@ -10,11 +10,14 @@ import os
 # 1. genereal settings
 LIMIT_TIME = 100
 FITTING = False # specify if you are going to fit with min-max scalar #todo make linear regression albinometer
-IMAGE = "L1_R1_Hand"  # image chosen as background (see paths_ for all options)
+IMAGE = "R1_L2_EXAMPLE"  # image chosen as background (see paths_ for all options)
 SCALE = "high" #interal parameter of PCB
 
 paths_ = {
     "DATA_FILENAME": os.path.join(os.getcwd(), "data", "test_data.csv"), # data from usb is saved here
+    "WEIGHT_FILENAME": os.path.join(os.getcwd(), "data", "weight_data.csv"),  # data from arudino usb  is saved here
+    "COMBINED_FILENAME": os.path.join(os.getcwd(), "data", "combined_data.csv"),  # arduino + pcb
+
     "FIT_MINMAX_FILENAME": os.path.join(os.getcwd(), "fits", "Fit_minmax"), #data of min max scaler fit is saved here
 
       #Background images for plots
@@ -36,7 +39,7 @@ marker = [',', '+', '.', 'o', '*',',', '+', '.', 'o', '*',',', '+', '.', 'o', '*
 
 # 3a config for live_scatter_plot
 COLOURS = [f"C{i}" for i in range(1, 33)]
-Y_lim = [0, 3e7]
+Y_lim = [0, 0.5e7]
 BUFFER_mean = 20  # before plotting scatter, does the mean of this many points
 pin_color = {1: '#e6194b', 2: '#3cb44b', 3: '#ffe119', 4: '#4363d8', 5: '#f58231',
              6: '#911eb4', 7: '#46f0f0', 8: '#f032e6', 9: '#bcf60c', 10: '#fabebe',
@@ -107,7 +110,7 @@ line_plot_xlim = (0, 200)
 line_plot_ylim = (0, 5e7)
 # min and max values that the sensors will produce
 SENSOR_MIN = 0
-SENSOR_MAX = 0.5e7
+SENSOR_MAX = 1e7
 alpha_matrix = 1 #change the transparency
 
 
