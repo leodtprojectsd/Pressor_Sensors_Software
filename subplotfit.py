@@ -14,6 +14,9 @@ def data_gen():
         # adapted the data generator to yield both sin and cos
         yield t, y1, y2, y3
 
+
+
+
 data_gen.t = 0
 
 # create a figure with two subplots

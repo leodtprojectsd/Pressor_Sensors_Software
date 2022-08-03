@@ -18,14 +18,17 @@ examplemap = \
      }
 
 
-IMAGE = "example_image_.png"  # image chosen as background
+IMAGE = "L2_R1_L1_R1.png"  # image chosen as background
 IMAGE_FILEPATH = os.path.join(os.getcwd(), "background_images", IMAGE)
 background_img = plt.imread(IMAGE_FILEPATH)
-fig, ax = plt.subplots(figsize=(8, 16))
-
+fig, ax = plt.subplots(figsize=(16, 8))
 ax.imshow(background_img, interpolation='nearest')
-plt.tight_layout()
-for key, value in examplemap.items():
- ax.scatter(*value)
- plt.text(value[0]+10, value[1], str(key))
 plt.show()
+# fig, ax = plt.subplots(figsize=(16, 2))
+#
+# ax.imshow(background_img, interpolation='nearest')
+# plt.tight_layout()
+# for key, value in examplemap.items():
+#  ax.scatter(*value)
+#  plt.text(value[0]+10, value[1], str(key))
+# plt.show()

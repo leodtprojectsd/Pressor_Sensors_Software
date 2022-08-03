@@ -10,7 +10,7 @@ import os
 # 1. genereal settings
 LIMIT_TIME = 100
 FITTING = False # specify if you are going to fit with min-max scalar #todo make linear regression albinometer
-IMAGE = "R1_L2_EXAMPLE"  # image chosen as background (see paths_ for all options)
+IMAGE = "L2_R1_L1_R1"  # image chosen as background (see paths_ for all options)
 SCALE = "high" #interal parameter of PCB
 
 paths_ = {
@@ -24,7 +24,8 @@ paths_ = {
     "L1_R1_hand": os.path.join(os.getcwd(), "background_images", "L1_R1_Hand.png"),
     "R1_L2_EXAMPLE": os.path.join(os.getcwd(), "background_images", "R1_L2_EXAMPLE.png"),
     "L2_R2_Hand": os.path.join(os.getcwd(), "background_images", "L2_R2_Hand.png"),
-    "L1_R1_Hand": os.path.join(os.getcwd(), "background_images", "L1_R1_Hand.png")
+    "L1_R1_Hand": os.path.join(os.getcwd(), "background_images", "L1_R1_Hand.png"),
+    "L2_R1_L1_R1": os.path.join(os.getcwd(), "background_images", "L2_R1_L1_R1.png")
 }
  # 2.  config for data_aquistion
 PORT = "COM3"
@@ -34,12 +35,12 @@ RX_SIZE = 1000000
 TX_SIZE = 1000000
 
 #3. PLOT CONIFIGURE
-PINS = np.arange(1, 17) #list of plots you want to see
+PINS = np.arange(1, 33) #list of plots you want to see
 marker = [',', '+', '.', 'o', '*',',', '+', '.', 'o', '*',',', '+', '.', 'o', '*',',', '+', '.', 'o', '*']
 
 # 3a config for live_scatter_plot
 COLOURS = [f"C{i}" for i in range(1, 33)]
-Y_lim = [0, 0.5e7]
+Y_lim = [0, 7.5e7]
 BUFFER_mean = 20  # before plotting scatter, does the mean of this many points
 pin_color = {1: '#e6194b', 2: '#3cb44b', 3: '#ffe119', 4: '#4363d8', 5: '#f58231',
              6: '#911eb4', 7: '#46f0f0', 8: '#f032e6', 9: '#bcf60c', 10: '#fabebe',
@@ -48,6 +49,9 @@ pin_color = {1: '#e6194b', 2: '#3cb44b', 3: '#ffe119', 4: '#4363d8', 5: '#f58231
 
  #3b. config for scatter fadde using colurs for scatter fade, after first 17 colours probably doesn't fade
 colors_fade = [
+    'Greys', 'Purples', 'Blues', 'Greens', 'Oranges', 'Reds',
+    'YlOrBr', 'YlOrRd', 'OrRd', 'PuRd', 'RdPu', 'BuPu',
+    'GnBu', 'PuBu', 'YlGnBu', 'PuBuGn', 'BuGn', 'YlGn',
     'Greys', 'Purples', 'Blues', 'Greens', 'Oranges', 'Reds',
     'YlOrBr', 'YlOrRd', 'OrRd', 'PuRd', 'RdPu', 'BuPu',
     'GnBu', 'PuBu', 'YlGnBu', 'PuBuGn', 'BuGn', 'YlGn',
@@ -76,6 +80,25 @@ IMAGE_COORDINATES = {"example_image":
                            [102,223],[155,224],
                            [219, 240],[28,148],
                            [161.7, 99.7],[59,87]]],
+                     "L2_R1_L1_R1": # foot foot, hand han
+                        [[[92, 335], [114, 191],
+                          [186, 117], [164, 176],
+                          [205, 219], [185, 331],
+                          [181, 510], [143, 509]],
+                        [[330,507], [358, 499],
+                          [306, 341], [279, 210],
+                          [311, 156], [279, 104],
+                          [357, 157], [385, 334]],
+                        [[700, 100], [800, 100],
+                          [700, 200], [800, 200],
+                          [700, 300], [800, 300],
+                          [700, 400], [800, 350]],
+                        [[900, 100], [1000, 100],
+                          [900, 200], [1000, 200],
+                          [900, 300], [1000, 300],
+                          [900, 400], [1000, 350]],
+                                                  ],
+
                      "R1_L2_EXAMPLE":
                          [[[624,1072],[680, 1071],
                            [595, 734], [544, 475],
@@ -85,6 +108,9 @@ IMAGE_COORDINATES = {"example_image":
                            [405,323],[359,455],
                            [437, 528],[416,759],
                            [394, 1098],[325,1107]]],
+
+
+
                      "L2_R2_Hand":
                          [[[503,251],[413, 155],
                            [293, 343], [305, 99],
@@ -110,7 +136,7 @@ line_plot_xlim = (0, 200)
 line_plot_ylim = (0, 5e7)
 # min and max values that the sensors will produce
 SENSOR_MIN = 0
-SENSOR_MAX = 1e7
+SENSOR_MAX = 20e7
 alpha_matrix = 1 #change the transparency
 
 

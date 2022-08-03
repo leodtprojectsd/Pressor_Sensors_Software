@@ -8,9 +8,6 @@ import csv
 weights = []
 times = []
 
-
-
-
 def connect_arduino_to_usb (port ="COM6", baudrate_arduino=9600, timeout=2):
     try:
         ser = serial.Serial('COM6', baudrate=baudrate_arduino, timeout=timeout)  # change to config port
@@ -26,7 +23,6 @@ def connect_arduino_to_usb (port ="COM6", baudrate_arduino=9600, timeout=2):
         serial could not connect to arduino  
         """)
     return (ser)
-
 
 
 def get_data_from_USB_Arduino(filename,  port="COM6", baudrate=9600, timeout=2):
@@ -49,8 +45,6 @@ def get_data_from_USB_Arduino(filename,  port="COM6", baudrate=9600, timeout=2):
         except KeyboardInterrupt:
             print("MEASURMENT INTERRUPTED...")
             ser.close()
-
-
 
 
 

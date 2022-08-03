@@ -5,12 +5,12 @@ import time
 import matplotlib.pyplot as plt
 import numpy as np
 
-
 def make_plot(background, coordinates, pressure_data):
     fig, ax = plt.subplots(1, 1)
     ax.imshow(background)
-
     coordinates = np.asarray(coordinates).reshape(-1, 2).T
+    for idx, (x, y) in enumerate(zip(coordinates[0], coordinates[1])): # adds pixel numeration to matrix plot
+        ax.annotate(str(idx+1), (x, y + 0.2))
     sc = ax.scatter(
         *coordinates,
         s=10.0**2,
@@ -20,8 +20,12 @@ def make_plot(background, coordinates, pressure_data):
         vmax=config.SENSOR_MAX,
         alpha= config.alpha_matrix
     )
+    print (sc)
+
+
     fig.colorbar(sc, label="pressure (some units)")
     return fig, sc
+
 
 def update_plot(fig, sc, pressure_data):
     """Update the plot with new data and redraw the figure."""
