@@ -1,3 +1,10 @@
+"""
+Scatter_fade.py has on xaxis = PIN and y = R, time shows in the title.
+The plot is used to monitor each pin with a fade leaving a trace to track better movements.
+
+"""
+
+
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.cm as cm
@@ -6,14 +13,17 @@ import functions_pressure as funp
 from matplotlib.animation import FuncAnimation
 import time
 
-fig, ax = plt.subplots()
-ax.set_xlabel('X Axis', size=12)
-ax.set_ylabel('Y Axis', size=12)
+
  #set ylim based on if fitting is true or False
-ylim = config.Y_lim
-if config.FITTING == True:
-    ylim = [0,1]
-    print ("Fitting: MinMaxScaler applied")
+ylim, y_title = (config.Y_lim, "R") if config.FITTING == False else ([0,1], "R - Norm")
+print(f"Fitting data (MinMaxScaler): {config.FITTING}")
+
+ #Start plot
+fig, ax = plt.subplots()
+
+ax.set_xlabel('PINS', size=12)
+ax.set_ylabel(y_title, size=12)
+
 ax.axis([0, max(config.PINS) + 1, ylim[0], ylim[1]])
 ax.set_xticks(config.PINS)
 
@@ -22,8 +32,8 @@ y_vals = []
 
 iterations = 100
 
-cmaps = [cm.get_cmap(x) for x in config.colors_fade]
-cmaps = [cmaps[i] for i in config.PINS - 1]
+cmaps = [cm.get_cmap(x) for x in config.colors_fade] # get colors
+cmaps = [cmaps[i] for i in config.PINS - 1] #only get colors for pins you need.
 
 scatters = [ax.scatter(x_vals, y_vals, c=[], cmap=cmaps[i], vmin=0, vmax=1) for i in range(len(cmaps))]
 intensities = [[] for i in range(len(cmaps))]  # initializing intensities array
@@ -57,7 +67,8 @@ def animate(t):
         scatters[i].set_array(intensities[i])
 
         # Set title
-    ax.set_title("time {:0.3f} loop time:{:0.3f}".format(time_, time.time() - loop_time))
+
+    ax.set_title("Scatter fade \ntime {:0.3f} loop time:{:0.3f}".format(time.time() - time_, time.time() - loop_time))
 
 
 def plot_():

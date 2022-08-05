@@ -1,5 +1,6 @@
 """
-Store all parameters that you may want to change
+config.py contains all parameters used by the rest of the programs.
+In the other programs, config variables are called with congif.variable_name
 
 """
 import numpy as np
@@ -9,8 +10,8 @@ import os
 
 # 1. genereal settings
 LIMIT_TIME = 100
-FITTING = False # specify if you are going to fit with min-max scalar #todo make linear regression albinometer
-IMAGE = "L2_R1_L1_R1"  # image chosen as background (see paths_ for all options)
+FITTING = True # specify if you are going to fit with min-max scalar #todo make linear regression albinometer
+IMAGE = "R1_L2_EXAMPLE"  # image chosen as background (see paths_ for all options)
 SCALE = "high" #interal parameter of PCB
 
 paths_ = {
@@ -22,20 +23,20 @@ paths_ = {
 
       #Background images for plots
     "L1_R1_hand": os.path.join(os.getcwd(), "background_images", "L1_R1_Hand.png"),
-    "R1_L2_EXAMPLE": os.path.join(os.getcwd(), "background_images", "R1_L2_EXAMPLE.png"),
+    "R1_L2_EXAMPLE": os.path.join(os.getcwd(), "background_images", "R1_L2_EXAMPLE.png"), #foot
     "L2_R2_Hand": os.path.join(os.getcwd(), "background_images", "L2_R2_Hand.png"),
     "L1_R1_Hand": os.path.join(os.getcwd(), "background_images", "L1_R1_Hand.png"),
-    "L2_R1_L1_R1": os.path.join(os.getcwd(), "background_images", "L2_R1_L1_R1.png")
+    "L2_R1_L1_R1": os.path.join(os.getcwd(), "background_images", "L2_R1_L1_R1.png") #! matrix for this not fitted completly as PCB not workint yet
 }
  # 2.  config for data_aquistion
-PORT = "COM3"
+PORT = "COM3" #! these are actally not connected to a function (as I never used them) just change all metions of port to the one you want
 BAUDRATE = 115200
 TIMEOUT = 2
 RX_SIZE = 1000000
 TX_SIZE = 1000000
 
 #3. PLOT CONIFIGURE
-PINS = np.arange(1, 33) #list of plots you want to see
+PINS = np.arange(1, 17) #list of plots you want to see
 marker = [',', '+', '.', 'o', '*',',', '+', '.', 'o', '*',',', '+', '.', 'o', '*',',', '+', '.', 'o', '*']
 
 # 3a config for live_scatter_plot
@@ -135,8 +136,14 @@ IMAGE_COORDINATES = {"example_image":
 line_plot_xlim = (0, 200)
 line_plot_ylim = (0, 5e7)
 # min and max values that the sensors will produce
-SENSOR_MIN = 0
-SENSOR_MAX = 20e7
+
+
+SENSOR_MIN, SENSOR_MAX = (0, 5e7) if FITTING==False else (0, 1)
+
 alpha_matrix = 1 #change the transparency
 
-
+## settings for live_separate_line_plots.
+separate_x_lim = [0,20]
+separate_y_lim =  [[0,0.2e7], [0,0.25e7], [0,3e9], [0,2e9]] # ylim for pins [[1-8],[9-16], [17,24], [25-32]
+separate_COLOR = ['b', 'g', 'r', 'c', 'm', 'y', 'k', 'brown', 'b', 'g', 'r', 'c', 'm', 'y', 'k', 'brown','b', 'g', 'r', 'c', 'm', 'y', 'k', 'brown','b', 'g', 'r', 'c', 'm', 'y', 'k', 'brown']
+separate_x_lim_increment = 20 #when time = x_lim, how much does x increase by

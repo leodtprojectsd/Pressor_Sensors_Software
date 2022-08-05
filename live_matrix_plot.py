@@ -49,6 +49,10 @@ def plot_():
     while True:
         frame_start = time.perf_counter()
         data = funp.read_lastnlines(config.paths_["DATA_FILENAME"], config.BUFFER_mean)  # returns the mean of last x datapoints
+
+        if config.FITTING:
+            scaler = funp.read_from_pickle(config.paths_["FIT_MINMAX_FILENAME"])
+            data[:, 1:] = scaler.transform(data[:, 1:])
         pressure_values = data[:, config.PINS]  # get the pressure values corresponding to the image
 
         # update the figure
